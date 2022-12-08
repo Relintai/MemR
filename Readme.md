@@ -1,81 +1,228 @@
-# MemeR
+# MemR
 
-A very likely dump app, that I plan to use to implement the rendering and window management for (rcpp_framework)[https://github.com/Relintai/rcpp_framework].
+Small cross platform utility to help you organize images into folders.
 
-It will make a folder of images / videos easily searchable locally on lots of platforms.
+The project itself resides in the game folder. Open that with the proper version of the pandemonium engine.
 
-Note: this readme has been taken from an another project of mine, it will be updated later.
+For now you can see the required engine commit hash in the [engine's master entry in this file](https://github.com/Relintai/pandemonium_cms/blob/master/HEADS), 
+which you can use to get an executable from the engine's [github actions tab](https://github.com/Relintai/pandemonium_engine/actions), or you can 
+[compile](#compiling) it yourself.
 
-## Compilation
+## Project overview
 
-Will only work on linux! Works on the rasberry pi.
+The project's workflow has been set up so you can easily compile the proper version of the engine for yourself if you want to.
 
-### Dependencies
+See the [Compiling](#compiling) section if you want to know how to do this.
 
-Arch/Manjaro:
+## Compiling
 
-``` 
-pacman -S --needed scons pkgconf gcc yasm 
-```
+First make sure, that you have everything installed to be able to compile the engine. 
+See the [official docs for compiling Godot](https://docs.godotengine.org/en/3.4/development/compiling/index.html) for more info 
+(the pandemonium engine is a godot fork, the same instructions will work). 
 
-Debian/Raspian:
+My setup/compile script uses the same tools, so you don't need to install anything else.
 
-```
-sudo apt-get install build-essential scons pkg-config libudev-dev yasm 
-```
+Even though the project doesn't use godot anymore, their docs are still sufficient.
 
-Optionally if you install MariaDB/MySQL and/or PostgreSQL the compile system should pick it up. Make sure to get a version
-whoch contains the development headers (A bunch of .h files).
+Now let's clone this repository:
 
-### Initial setup
+``` git clone https://github.com/Relintai/pandemonium_cms ```
 
-clone this repo, then call `scons`, it will clone rcpp cms into a new engine directory. Run this every time you update the project.
-You don't have to run it before / between builds.
+cd into the new folder:
 
-```
-# git clone git@github.com:Relintai/MemeR.git Memer
-# cd crystal_cms
-# scons
-```
+``` cd pandemonium_cms ```
 
-Now you can build the project like: `scons bl`.  ([b]uild [l]inux)
+Now let's run the project's setup script, by calling scons without arguments.
 
-Adding -jX to the build command will run the build on that many threads. Like: `scons bl -j4`.
+``` scons ```
 
-```
-# scons bl -j4
-- or -
-# ./build.sh
-```
-Now you can run it.
+This will clone and setup the engine, and all of the required modules into a new `engine` folder inside the project, using http.
 
-First run migrations, this will create the necessary database tables:
+(If you want to use the github's ssh links append `repository_type=ssh` like ``` scons repository_type=ssh ```)
 
-```
-# ./engine/bin/server m
-- or -
-# ./migrate.sh
-```
+Once it is done you can compile the engine.
 
-Now you can start the server:
+To build the editor on windows with 4 threads run the following command:
 
-```
-# ./engine/bin/server
-- or -
-# ./run.sh
-```
+``` scons bew -j4 ```
 
-Make sure to run it from the project's directory, as it needs data files.
+To build the editor on linux with 4 threads run the following command:
 
-Now just open http://127.0.0.1:8080
+``` scons bel -j4 ```
 
-You can push floats to the "a/b" MQTT topics, and the new values will be save in the `database.sqlite` file, and will appear
-in your browser.
+I call this feature of the setup script build words. [See](#build-words).
 
-## Structure
+Once the build finishes you can find the editor executable inside the `./engine/bin/` folder.
 
-The main Application implementation is `app/ic_application.h`.
+For convenience there is a provided `editor.sh`, or `editor.bat` for running it from the project's folder.
+These will create a copy, so you can even compile while the editor is running.
 
-The `main.cpp` contains the initialization code for the framework.
+Alternatively if you don't want to use build words, you can also just go into the engine folder:
 
-The `content/www` folder is the wwwroot.
+``` cd engine ```
+
+And compile godot as per the [official docs](https://docs.godotengine.org/en/latest/development/compiling/index.html).
+
+### Build words
+
+The project's setup script contains support for "build words". These can be used from the root of this project.
+
+For example to build the editor for windows with 4 threads you can use:
+
+``` scons bew -j4 ```
+
+The first argument must start with b (build), then it needs to be followed by a few abbreviations (the order does not matters)
+
+The rest of the arguments will be passed directly to godot's scons script.
+
+#### Editor
+
+Append `e` to build with `tools=yes` a.k.a. the editor.
+
+``` scons bew -j4 ```
+
+if you omit `e`, the system will build the export template for you. For example:
+
+``` scons bw -j4 ```
+
+This will be the `release_debug` windows export template.
+
+#### Platform abbreviations
+
+`l`: linux \
+`w`: windows \
+`a`: android \
+`j`: Javascript \
+`i`: iphone (Not yet finished, use `build_ios.sh`, and `build_ios_release.sh`) \
+Mac OSX: Not yet finished, use `build_osx.sh`
+
+#### Target abbreviations
+
+By default the system builds in release_debug.
+
+Append `d` for debug, or `r` for release.
+
+``` scons bewd -j4 ```
+
+build editor windows debug
+
+``` scons bwr -j4 ```
+
+build windows release (this will build the windows release export template)
+
+#### Shared modules
+
+Note: This only works on linux!
+
+append `s` to the build string. 
+
+Optionally you can also make the build system only build a target module, by appending one of these:
+
+`E`: Entity Spell System \
+`T`: Texture Packer \
+`V`: Voxelman \
+`W`: World Generator \
+`P`: Procedural Animations
+
+Example:
+
+``` scons belsE -j4 ```
+
+build editor linux shared (Entity Spell System) with 4 threads
+
+Note: to easily run the editor you can use the `editor.sh` or `editor.bat` in the root of the project.
+
+#### Other
+
+Append `v` to pass the `vsproj=yes` parameter to the build script. This will generate Visual Studio project files.\
+Append `c` to pass the `compiledb=yes` parameter to the build script. This is a new feature in 3.x to have this disabled by default to lessen compile times.
+
+#### Postfixes
+
+There are a few postfixes for the build words. These are more complex options. You have to append them to your build word with an underscore.
+
+You can use as many as you want.
+
+For example:
+
+``` scons bel_slim_latomic -j4 ```
+
+##### slim
+
+With this postfix you can build a slimmed down version of the engine. This disables quite a few unneeded modules.
+
+``` scons bel_slim -j4 ```
+
+##### latomic
+
+If you get linker errors while building the game/editor about undefined referenced with atomic related functions you can use this postfix.
+It will add the ` -latomic ` command line switch to the linker flags.
+
+I ran into this issue while building on a raspberry pi 4 with the x11 platform. It might be related to the recent reworks to threading.
+
+``` scons bel_latomic -j4 ```
+
+##### strip
+
+Appends `debug_symbols=no` to the build command, which will strip the resulting binary from debug symbols.
+
+``` scons bel_strip -j4 ```
+
+##### threads
+
+Appends `threads_enabled=yes` to the build command. Useful for building the editor for html.
+
+``` scons bej_threads -j4 ```
+
+#### Scons cache, and sdk locations
+
+In order to use scons cache and to tell the build system where some of the required sdks are located you usually 
+have to use environment variables. Most of the time you might just want to add them globally, 
+howewer this is sometimes unfeasible (e.g. you don't have administrator access, or you just want to have
+multiple sdk versions installed).
+
+In order to solve this a build config file was added.
+
+If you want to use the config simply rename the provided `build.config.example` to `build.config`, and customize 
+the settings inside.
+
+### Manual Setup
+
+If you you don't want to use the setup script (or just want to know what it actually does), 
+this section will explain how to set everything up manually.
+
+First clone the engine:
+
+``` git clone https://github.com/Relintai/pandemonium_engine ```
+
+Now if you look at the [HEADS file](https://github.com/Relintai/pandemonium_cms/blob/master/HEADS).
+
+It contains the commit hashes for that particular revision for every module and the engine.
+The engine now contains all the modules, so at the moment only worry about the engine's commit hash.
+
+You need to go and checkout the proper commit for it.
+
+Now you can go ahead and compile the engine normally.
+
+## Pulling upstream changes
+
+First pull the changes by calling
+
+``` git pull orgin master ```
+
+Then just run `scons`, to will update the modules.
+
+## Upgrading the modules
+
+Note: this is how to update the HEADS file. Normally you don't need to do this.
+
+If you want to update the modules, and the engine to the latest, you can use (`action=update`):
+
+``` scons a=u ``` 
+
+You can also update different targets: `all`, `engine`, `modules`, `all_addons`, `addons`, `third_party_addons`
+
+For example to update the engine to the latest: ``` scons a=u target=engine ```
+
+
+

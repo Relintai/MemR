@@ -1,6 +1,8 @@
 engine
+pandemonium_engine
 modules/*
 logs/*
+game/roms/*
 
 *.d
 *.o
@@ -22,11 +24,10 @@ TestRWTextures
 _build/*
 _binaries/*
 game/android/build/*
-.cache/*
 
 *.blend1
 .dir-locals.el
 
 build.config
 
-database.sqlite
+__pycache__/*
