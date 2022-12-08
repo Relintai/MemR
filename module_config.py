@@ -17,6 +17,8 @@ module_repositories = [
     #[ ['https://github.com/Relintai/broken_seals_module.git', 'git@github.com:Relintai/broken_seals_module.git'], 'broken_seals_module', '' ],
     #[ ['https://github.com/Relintai/thread_pool.git', 'git@github.com:Relintai/thread_pool.git'], 'thread_pool', '' ],
     #[ ['https://github.com/Relintai/terraman.git', 'git@github.com:Relintai/terraman.git'], 'terraman', '' ],
+    [ ['https://github.com/Relintai/webp.git', 'git@github.com:Relintai/webp.git'], 'webp', '' ],
+    [ ['https://github.com/Relintai/webm.git', 'git@github.com:Relintai/webm.git'], 'webm', '' ],
 ]
 
 removed_modules = [
