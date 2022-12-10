@@ -14,7 +14,6 @@ config/name="MemR"
 run/main_scene="res://Main.tscn"
 run/low_processor_mode=true
 config/icon="res://icon.png"
-config/auto_accept_quit=false
 config/quit_on_go_back=false
 config/sort_folder=""
 config/target_folder=""
