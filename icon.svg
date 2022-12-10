@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="64"
+   viewBox="0 0 64 64"
+   width="64"
+   version="1.1"
+   id="svg421"
+   sodipodi:docname="icon.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs425">
+    <inkscape:path-effect
+       effect="fill_between_many"
+       method="originald"
+       linkedpaths="#g401,0,1"
+       id="path-effect705" />
+  </defs>
+  <sodipodi:namedview
+     id="namedview423"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="4.8005922"
+     inkscape:cx="-5.6243061"
+     inkscape:cy="50.20214"
+     inkscape:window-width="1920"
+     inkscape:window-height="1023"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg421" />
+  <path
+     inkscape:original-d="M 0,0"
+     inkscape:path-effect="#path-effect705"
+     d="M 0,0"
+     id="path707"
+     class="UnoptimicedTransforms" />
+  <path
+     style="fill:#355570;fill-opacity:1;stroke:none;stroke-width:0.0241565"
+     d=""
+     id="path2692" />
+  <rect
+     style="fill:#3f3d3d;fill-opacity:1;stroke:#151414;stroke-width:3.664;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+     id="rect6447"
+     width="60.313911"
+     height="60.29121"
+     x="1.8395547"
+     y="1.8663901"
+     ry="6.2212629" />
+  <g
+     aria-label="MR"
+     id="text510"
+     style="font-size:40px;line-height:1.25;fill:#4f1015;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+     transform="matrix(0.99992597,0,0,1.4021146,5.2316322,-12.375379)">
+    <path
+       id="path562"
+       style="font-family:'Noto Serif Armenian';-inkscape-font-specification:'Noto Serif Armenian';fill:#4f1015;fill-opacity:1;stroke:#000000;stroke-width:1.35728;stroke-dasharray:none;stroke-opacity:1"
+       d="m 29.461271,15.478461 v 0.05094 h -1.747929 l -9.194665,26.742803 h -0.16437 L 9.3240099,15.529403 H 3.8637372 V 48.168707 H 7.2713964 V 28.374672 c 0,-1.737081 -0.027452,-3.398029 -0.082185,-4.982736 -0.054732,-1.615181 -0.1223612,-2.895002 -0.2044595,-3.83973 h 0.1643694 l 9.6456807,28.616501 h 3.036825 L 29.461271,20.00909 v 28.108676 h 0.01804 v 0.05094 h 3.652209 v -0.05094 h 0.02405 V 34.632541 h 5.829101 l 7.099959,13.485225 h 4.311691 l -8.04608,-14.628229 c 0.985181,-0.396176 1.914556,-0.929435 2.790272,-1.599887 0.903082,-0.700928 1.642294,-1.631004 2.216982,-2.789058 0.57469,-1.158055 0.861938,-2.6057 0.861938,-4.342781 0,-3.108461 -0.87447,-5.423419 -2.625902,-6.947175 -1.724066,-1.554231 -4.40639,-2.332175 -8.046085,-2.332175 z m 3.694304,3.565919 h 4.187411 c 2.40822,0 4.186617,0.456398 5.335994,1.370651 1.149378,0.883778 1.723875,2.392594 1.723875,4.525852 0,2.041832 -0.547045,3.596128 -1.64169,4.662758 -1.094645,1.036154 -2.832865,1.555313 -5.213719,1.555313 h -4.391871 z" />
+  </g>
+</svg>
