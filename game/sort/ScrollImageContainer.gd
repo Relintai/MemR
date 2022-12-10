@@ -1,5 +1,7 @@
 extends PanelContainer
 
+export(NodePath) var zoom_slider_path : NodePath
+
 var mouse_down : bool = false
 var mouse_pointer : int = 0
 
@@ -7,6 +9,22 @@ var hscrollbar : HScrollBar
 var vscrollbar : VScrollBar
 
 var zoom : float = 1
+
+var _zoom_slider : VSlider
+
+func update_zoom_to_fit_width() -> void:
+	var cs : Vector2 = get_tex_size()
+	
+	if cs.x < 0.0000001 || cs.y < 0.0000001:
+		_zoom_slider.value = 1
+		return
+	
+	var max_axis : int = cs.max_axis()
+	
+	if max_axis == Vector2.AXIS_X:
+		_zoom_slider.value = get_parent().rect_size.x / cs.x
+	else:
+		_zoom_slider.value = get_parent().rect_size.y / cs.y
 
 func _gui_input(event: InputEvent) -> void:
 	if event.is_echo():
@@ -36,7 +54,23 @@ func _notification(what: int) -> void:
 		hscrollbar = sc.get_h_scrollbar()
 		vscrollbar = sc.get_v_scrollbar()
 		
+		_zoom_slider = get_node(zoom_slider_path)
+		
 func udpate_minimum_size() -> void:
+	var active_node : Control
+	for c in get_children():
+		if c.is_visible_in_tree():
+			active_node = c
+			break
+	
+	var cs : Vector2 = get_tex_size()
+	
+	cs.x *= zoom
+	cs.y *= zoom
+
+	rect_min_size = cs
+
+func get_tex_size() -> Vector2:
 	var active_node : Control
 	for c in get_children():
 		if c.is_visible_in_tree():
@@ -49,10 +83,8 @@ func udpate_minimum_size() -> void:
 		var tr : TextureRect = active_node as TextureRect
 	
 		cs = Vector2(tr.texture.get_width(), tr.texture.get_height())
-		cs.x *= zoom
-		cs.y *= zoom
 
-	rect_min_size = cs
+	return cs
 
 func _on_ZoomSlider_value_changed(value: float) -> void:
 	if value < 0.00000001:
