@@ -21,12 +21,6 @@ class CodeEntry:
 		for element in self.sequence:
 			result += str(element) + ", "
 		return result.substr(0, result.length() - 2)
-		
-	func duplicate():
-		var sq : PoolByteArray = PoolByteArray() 
-		sq.append_array(sequence)
-		var ce : CodeEntry = CodeEntry.new(sq)
-		return ce
 
 
 class CodeTable:
@@ -201,7 +195,6 @@ func decompress_lzw(code_stream_data: PoolByteArray, min_code_size: int, colors:
 			var prev_code_entry: CodeEntry = code_table.get(prevcode)
 			
 			if prev_code_entry:
-				prev_code_entry = prev_code_entry.duplicate()
 				code_table.add(prev_code_entry.add(k))
 			else:
 				code_table.add(k)
