@@ -19,6 +19,7 @@ module_repositories = [
     #[ ['https://github.com/Relintai/terraman.git', 'git@github.com:Relintai/terraman.git'], 'terraman', '' ],
     [ ['https://github.com/Relintai/webp.git', 'git@github.com:Relintai/webp.git'], 'webp', '' ],
     [ ['https://github.com/Relintai/webm.git', 'git@github.com:Relintai/webm.git'], 'webm', '' ],
+    [ ['https://github.com/Relintai/gif_loader.git', 'git@github.com:Relintai/gif_loader.git'], 'gif_loader', '' ],
 ]
 
 removed_modules = [
