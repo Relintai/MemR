@@ -33,8 +33,14 @@ func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var iemb : InputEventMouseButton = event
 		
-		mouse_down = iemb.pressed
-		mouse_pointer == event.device
+		if iemb.button_index == BUTTON_WHEEL_UP:
+			_zoom_slider.value += 0.03
+		elif iemb.button_index == BUTTON_WHEEL_DOWN:
+			_zoom_slider.value -= 0.03
+		else:
+			mouse_down = iemb.pressed
+			mouse_pointer == event.button_index
+			
 		accept_event()
 		
 	elif event is InputEventMouseMotion:
