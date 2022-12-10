@@ -17,6 +17,15 @@ func read(source_file):
 	file.close()
 	var pos = 0
 	# Header 'GIF89a'
+	
+	var sttr : String = ""
+	for i in range(6):
+		sttr += char(data[i])
+		
+	if (sttr != "GIF89a"):
+		print("Can only open GIF89a!")
+		return null
+	
 	pos = pos + 6
 	# Logical Screen Descriptor
 	var width = get_int(data, pos)
