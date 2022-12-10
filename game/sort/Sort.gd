@@ -3,6 +3,8 @@ extends VBoxContainer
 var sort_folder : String
 var target_folder : String
 
+var shell_script_name : String = "apply.sh"
+
 var _texture_rect : TextureRect
 var _error_label : Label
 var _categories_ob : OptionButton
@@ -50,6 +52,9 @@ func refresh_categories() -> void:
 func refresh_sub_categories() -> void:
 	_sub_categories_ob.clear()
 	
+	if _categories_ob.selected < 0:
+		return
+	
 	var tf : Directory = Directory.new()
 	if tf.open(target_folder.append_path(_categories_ob.get_item_text(_categories_ob.selected))) != OK:
 		return
@@ -70,7 +75,9 @@ func refresh_sub_categories() -> void:
 	tf.list_dir_end()
 	
 	folders.sort()
-
+	
+	_sub_categories_ob.add_item("<NONE>")
+	
 	for i in range(folders.size()):
 		_sub_categories_ob.add_item(folders[i])
 
@@ -109,8 +116,6 @@ func next_image() -> void:
 	_error_label.hide()
 	_texture_rect.show()
 	_texture_rect.texture.create_from_image(img, 0)
-	
-	
 
 func evaluate_folders() -> void:
 	_folders.clear()
@@ -175,7 +180,56 @@ func next_folder() -> void:
 		_current_file_index = -1
 		next_image()
 
+func append_command(command : String) -> void:
+	var shscript_file : String = sort_folder.plus_file(shell_script_name)
+	
+	var file : File = File.new()
+	
+	if !file.file_exists(shscript_file):
+		file.open(shscript_file, File.WRITE)
+	else:
+		file.open(shscript_file, File.READ_WRITE)
+		file.seek_end()
+		
+	file.store_string(command + "\n")
+	file.close()
+
 func _on_Apply_pressed() -> void:
+	if _categories_ob.selected == -1:
+		print("_categories_ob.selected == -1!")
+		return
+		
+	if _sub_categories_ob.selected == -1:
+		print("_sub_categories_ob.selected == -1!")
+		return
+	
+	if _current_file_index >= _current_folder_files.size():
+		next_image()
+		return
+	
+	var cimagefn : String = _current_folder_files[_current_file_index]
+	var targetf : String = target_folder.append_path(_categories_ob.get_item_text(_categories_ob.selected))
+	
+	if _sub_categories_ob.selected > 0:
+		targetf = targetf.append_path(_sub_categories_ob.get_item_text(_sub_categories_ob.selected))
+	
+	targetf = targetf.plus_file(cimagefn.get_file())
+	
+	var dir : Directory = Directory.new()
+	var err : int = dir.copy(cimagefn, targetf)
+	
+	if err != OK:
+		print("_on_Apply_pressed dir.copy(cimagefn, targetf) err != OK! " + str(err))
+		return
+	
+	append_command("mv " + cimagefn + " " + targetf)
+
+	err = dir.remove(cimagefn)
+	
+	if err != OK:
+		print("_on_Apply_pressed dir.remove(cimagefn) err != OK! " + str(err))
+		return
+	
 	next_image()
 
 func _on_Skip_pressed() -> void:
@@ -204,7 +258,10 @@ func _on_NewCategoryPopup_confirmed() -> void:
 	var d : Directory = Directory.new()
 	d.make_dir_recursive(folder)
 	
+	append_command("mkdir " + folder)
+	
 	refresh_categories()
+	refresh_sub_categories()
 
 func _on_NewSubCategoryPopup_confirmed() -> void:
 	if _categories_ob.selected == -1:
@@ -218,6 +275,8 @@ func _on_NewSubCategoryPopup_confirmed() -> void:
 	
 	var d : Directory = Directory.new()
 	d.make_dir_recursive(folder)
+	
+	append_command("mkdir " + folder)
 	
 	refresh_sub_categories()
 
@@ -246,4 +305,3 @@ func _notification(what: int) -> void:
 			evaluate_folders()
 			_current_folder_index = -1
 			next_folder()
-			#next_image()
