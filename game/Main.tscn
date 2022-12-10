@@ -51,6 +51,20 @@ margin_top = 7.0
 margin_right = 1017.0
 margin_bottom = 593.0
 
+[node name="Control" type="Control" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+mouse_filter = 2
+
+[node name="FolderSetupError" type="AcceptDialog" parent="Control"]
+margin_left = 384.0
+margin_top = 172.0
+margin_right = 597.0
+margin_bottom = 230.0
+dialog_text = "Folders are not setup properly!"
+
 [connection signal="pressed" from="Menu/VBoxContainer/Sort" to="." method="_on_Sort_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="back" from="Settings" to="." method="_on_Settings_back"]
