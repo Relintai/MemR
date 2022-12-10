@@ -1,0 +1,36 @@
+[gd_resource type="Theme" load_steps=15 format=2]
+
+[ext_resource path="res://gui_fonts/font_normal.tres" type="DynamicFont" id=1]
+[ext_resource path="res://styleboxes/panel.tres" type="StyleBox" id=2]
+[ext_resource path="res://styleboxes/tab_panel.tres" type="StyleBox" id=3]
+[ext_resource path="res://styleboxes/button_normal_touch.tres" type="StyleBox" id=4]
+[ext_resource path="res://styleboxes/tab_bg.tres" type="StyleBox" id=5]
+[ext_resource path="res://styleboxes/tab_fg_touch.tres" type="StyleBox" id=6]
+[ext_resource path="res://styleboxes/button_hover.tres" type="StyleBox" id=7]
+[ext_resource path="res://styleboxes/button_pressed.tres" type="StyleBox" id=8]
+[ext_resource path="res://styleboxes/button_focus.tres" type="StyleBox" id=9]
+[ext_resource path="res://styleboxes/scrollbar_grabber.tres" type="StyleBox" id=10]
+[ext_resource path="res://styleboxes/scrollbar_grabber_highlighted.tres" type="StyleBox" id=11]
+[ext_resource path="res://styleboxes/scrollbar_grabber_pressed.tres" type="StyleBox" id=12]
+[ext_resource path="res://styleboxes/scrollbar_scroll_touch.tres" type="StyleBox" id=13]
+[ext_resource path="res://styleboxes/scrollbar_hscroll_touch.tres" type="StyleBox" id=14]
+
+[resource]
+default_font = ExtResource( 1 )
+Button/styles/focus = ExtResource( 9 )
+Button/styles/hover = ExtResource( 7 )
+Button/styles/normal = ExtResource( 4 )
+Button/styles/pressed = ExtResource( 8 )
+HScrollBar/styles/grabber = ExtResource( 10 )
+HScrollBar/styles/grabber_highlight = ExtResource( 11 )
+HScrollBar/styles/grabber_pressed = ExtResource( 12 )
+HScrollBar/styles/scroll = ExtResource( 14 )
+Panel/styles/panel = ExtResource( 2 )
+PanelContainer/styles/panel = ExtResource( 2 )
+TabContainer/styles/panel = ExtResource( 3 )
+TabContainer/styles/tab_bg = ExtResource( 5 )
+TabContainer/styles/tab_fg = ExtResource( 6 )
+VScrollBar/styles/grabber = ExtResource( 10 )
+VScrollBar/styles/grabber_highlight = ExtResource( 11 )
+VScrollBar/styles/grabber_pressed = ExtResource( 12 )
+VScrollBar/styles/scroll = ExtResource( 13 )
