@@ -6,6 +6,7 @@ var target_folder : String
 var shell_script_name : String = "apply.sh"
 
 var _texture_rect : TextureRect
+var _gif_rect : TextureRect
 var _error_label : Label
 var _categories_ob : OptionButton
 var _sub_categories_ob : OptionButton
@@ -104,18 +105,27 @@ func next_image() -> void:
 	if _current_file_index >= _current_folder_files.size():
 		next_folder()
 		return
-	
-	var img : Image = Image.new()
-	if img.load(_current_folder_files[_current_file_index]) != OK:
-		_error_label.text = "Error loading file: " + _current_folder_files[_current_file_index]
-		_error_label.show()
-		_texture_rect.hide()
-	
-		return
-	
+		
 	_error_label.hide()
-	_texture_rect.show()
-	_texture_rect.texture.create_from_image(img, 0)
+	_texture_rect.hide()
+	_gif_rect.hide()
+	
+	var curr_file : String = _current_folder_files[_current_file_index]
+	
+	if curr_file.get_extension().to_lower() != "gif":
+		var img : Image = Image.new()
+		if img.load(curr_file) != OK:
+			_error_label.text = "Error loading file: " + curr_file
+			_error_label.show()
+		else:
+			_texture_rect.show()
+			_texture_rect.texture.create_from_image(img, 0)
+	else:
+		if !_gif_rect.load_gif(curr_file):
+			_error_label.text = "Error loading file: " + curr_file
+			_error_label.show()
+		else:
+			_gif_rect.show()
 
 func evaluate_folders() -> void:
 	_folders.clear()
@@ -284,10 +294,11 @@ func _on_NewSubCategoryPopup_confirmed() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_READY:
 		_texture_rect = get_node("ScrollContainer/VBoxContainer/TextureRect") as TextureRect
+		_gif_rect = get_node("ScrollContainer/VBoxContainer/GifRect") as TextureRect
 		_error_label = get_node("ScrollContainer/VBoxContainer/ErrorLabel") as Label
 		_categories_ob = get_node("Categories/Categories") as OptionButton
 		_sub_categories_ob = get_node("SubCategoies/SubCategoies") as OptionButton
-		
+
 		_categories_popup = get_node("Control/NewCategoryPopup") as ConfirmationDialog
 		_categories_popup_line_edit = get_node("Control/NewCategoryPopup/VBoxContainer/LineEdit") as LineEdit
 		

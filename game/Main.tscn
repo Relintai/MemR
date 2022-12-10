@@ -15,26 +15,26 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 1017.0
+margin_right = 593.0
 margin_bottom = 593.0
 
 [node name="VBoxContainer" parent="Menu" index="0"]
-margin_right = 1010.0
+margin_right = 586.0
 margin_bottom = 586.0
 
 [node name="Sort" parent="Menu/VBoxContainer" index="0"]
 margin_top = 239.0
-margin_right = 1010.0
+margin_right = 586.0
 margin_bottom = 259.0
 
 [node name="Settings" parent="Menu/VBoxContainer" index="1"]
 margin_top = 283.0
-margin_right = 1010.0
+margin_right = 586.0
 margin_bottom = 303.0
 
 [node name="Exit" parent="Menu/VBoxContainer" index="2"]
 margin_top = 327.0
-margin_right = 1010.0
+margin_right = 586.0
 margin_bottom = 347.0
 
 [node name="Settings" parent="." instance=ExtResource( 3 )]
@@ -54,7 +54,7 @@ margin_bottom = 593.0
 [node name="Control" type="Control" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 1017.0
+margin_right = 593.0
 margin_bottom = 593.0
 mouse_filter = 2
 

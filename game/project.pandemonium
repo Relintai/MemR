@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": @"GifReader",
+"language": @"GDScript",
+"path": "res://addons/gif-importer/GIFReader.gd"
+} ]
+_global_script_class_icons={
+@"GifReader": ""
+}
+
 [application]
 
 config/name="MemR"
@@ -22,6 +32,10 @@ config/target_folder=""
 
 window/size/width=600
 window/handheld/orientation="sensor"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/gif-importer/plugin.cfg" )
 
 [physics]
 
