@@ -21,6 +21,12 @@ class CodeEntry:
 		for element in self.sequence:
 			result += str(element) + ", "
 		return result.substr(0, result.length() - 2)
+		
+	func duplicate():
+		var sq : PoolByteArray = PoolByteArray() 
+		sq.append_array(sequence)
+		var ce : CodeEntry = CodeEntry.new(sq)
+		return ce
 
 
 class CodeTable:
@@ -170,6 +176,9 @@ func decompress_lzw(code_stream_data: PoolByteArray, min_code_size: int, colors:
 	var prevcode: int = code
 	# <LOOP POINT>
 	while true:
+		if binary_code_stream.chunk_stream.size() - binary_code_stream.byte_index <= current_code_size:
+			break
+		
 		# let CODE be the next code in the code stream
 		code = binary_code_stream.read_bits(current_code_size)
 		# Detect Clear Code. When detected reset everything and get next code.
@@ -177,6 +186,7 @@ func decompress_lzw(code_stream_data: PoolByteArray, min_code_size: int, colors:
 			code_table = initialize_color_code_table(colors)
 			current_code_size = min_code_size + 1
 			code = binary_code_stream.read_bits(current_code_size)
+			prevcode = code
 		elif code == clear_code_index + 1:  # Stop when detected EOI Code.
 			break
 		# is CODE in the code table?
@@ -188,18 +198,37 @@ func decompress_lzw(code_stream_data: PoolByteArray, min_code_size: int, colors:
 			var k: CodeEntry = CodeEntry.new([code_entry.sequence[0]])
 			# warning-ignore:return_value_discarded
 			# add {PREVCODE} + k to the code table
-			code_table.add(code_table.get(prevcode).add(k))
+			var prev_code_entry: CodeEntry = code_table.get(prevcode)
+			
+			if prev_code_entry:
+				prev_code_entry = prev_code_entry.duplicate()
+				code_table.add(prev_code_entry.add(k))
+			else:
+				code_table.add(k)
 			# set PREVCODE = CODE
 			prevcode = code
 		else:  # if NO
 			# let k be the first index of {PREVCODE}
 			var prevcode_entry: CodeEntry = code_table.get(prevcode)
-			var k: CodeEntry = CodeEntry.new([prevcode_entry.sequence[0]])
+			
+			var k: CodeEntry
+			
+			if prevcode_entry:
+				k = CodeEntry.new([prevcode_entry.sequence[0]])
+			else:
+				k = CodeEntry.new([ code ])
+				
 			# output {PREVCODE} + k to index stream
-			index_stream.append_array(prevcode_entry.add(k).sequence)
+			if prevcode_entry:
+				index_stream.append_array(prevcode_entry.add(k).sequence)
+			else:
+				index_stream.append_array(k.sequence)
 			# add {PREVCODE} + k to code table
 			# warning-ignore:return_value_discarded
-			code_table.add(prevcode_entry.add(k))
+			if prevcode_entry:
+				code_table.add(prevcode_entry.add(k))
+			else:
+				code_table.add(k)
 			# set PREVCODE = CODE
 			prevcode = code
 

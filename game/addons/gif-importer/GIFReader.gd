@@ -103,10 +103,14 @@ func read(source_file):
 			img.lock()
 			for y in range(0, img_height):
 				for x in range(0, img_width):
+					if p >= decompressed.size():
+						break
+					
 					var c = decompressed[p]
 					if transparency == 0 or c != frame_transparent_color:
 						img.set_pixel(img_left + x, img_top + y, local_lut[c])
 					p = p + 1
+					
 			img.unlock()
 			var frame = ImageTexture.new()
 			frame.create_from_image(img, 0)
