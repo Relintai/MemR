@@ -31,3 +31,10 @@ func _notification(what: int) -> void:
 		
 		hscrollbar = sc.get_h_scrollbar()
 		vscrollbar = sc.get_v_scrollbar()
+
+
+func _on_ZoomSlider_value_changed(value: float) -> void:
+	if value < 0.00000001:
+		value = 0.00000001
+	
+	rect_scale = Vector2(value, value)

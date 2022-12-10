@@ -10,6 +10,7 @@ var _gif_rect : TextureRect
 var _error_label : Label
 var _categories_ob : OptionButton
 var _sub_categories_ob : OptionButton
+var _zoom_slider : VSlider
 
 var _categories_popup : ConfirmationDialog
 var _categories_popup_line_edit : LineEdit
@@ -126,6 +127,8 @@ func next_image() -> void:
 			_error_label.show()
 		else:
 			_gif_rect.show()
+			
+	_zoom_slider.value = 1
 
 func evaluate_folders() -> void:
 	_folders.clear()
@@ -293,9 +296,9 @@ func _on_NewSubCategoryPopup_confirmed() -> void:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_READY:
-		_texture_rect = get_node("ScrollContainer/VBoxContainer/TextureRect") as TextureRect
-		_gif_rect = get_node("ScrollContainer/VBoxContainer/GifRect") as TextureRect
-		_error_label = get_node("ScrollContainer/VBoxContainer/ErrorLabel") as Label
+		_texture_rect = get_node("HBoxContainer/ScrollContainer/VBoxContainer/TextureRect") as TextureRect
+		_gif_rect = get_node("HBoxContainer/ScrollContainer/VBoxContainer/GifRect") as TextureRect
+		_error_label = get_node("HBoxContainer/ScrollContainer/VBoxContainer/ErrorLabel") as Label
 		_categories_ob = get_node("Categories/Categories") as OptionButton
 		_sub_categories_ob = get_node("SubCategoies/SubCategoies") as OptionButton
 
@@ -304,6 +307,9 @@ func _notification(what: int) -> void:
 		
 		_sub_categories_popup = get_node("Control/NewSubCategoryPopup") as ConfirmationDialog
 		_sub_categories_popup_line_edit = get_node("Control/NewSubCategoryPopup/VBoxContainer/LineEdit") as LineEdit
+		
+		_zoom_slider = get_node("HBoxContainer/ZoomSlider") as VSlider
+		_zoom_slider.value = 1
 		
 		_texture_rect.texture = ImageTexture.new()
 	elif what == NOTIFICATION_VISIBILITY_CHANGED:
