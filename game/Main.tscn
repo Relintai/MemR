@@ -1,5 +1,58 @@
-[gd_scene format=2]
+[gd_scene load_steps=5 format=2]
 
-[node name="Main" type="Control"]
+[ext_resource path="res://menu/Menu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://settings/Settings.tscn" type="PackedScene" id=3]
+[ext_resource path="res://sort/Sort.tscn" type="PackedScene" id=4]
+
+[node name="Main" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="Menu" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+
+[node name="VBoxContainer" parent="Menu" index="0"]
+margin_right = 1010.0
+margin_bottom = 586.0
+
+[node name="Sort" parent="Menu/VBoxContainer" index="0"]
+margin_top = 239.0
+margin_right = 1010.0
+margin_bottom = 259.0
+
+[node name="Settings" parent="Menu/VBoxContainer" index="1"]
+margin_top = 283.0
+margin_right = 1010.0
+margin_bottom = 303.0
+
+[node name="Exit" parent="Menu/VBoxContainer" index="2"]
+margin_top = 327.0
+margin_right = 1010.0
+margin_bottom = 347.0
+
+[node name="Settings" parent="." instance=ExtResource( 3 )]
+visible = false
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+
+[node name="Sort" parent="." instance=ExtResource( 4 )]
+visible = false
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+
+[connection signal="pressed" from="Menu/VBoxContainer/Sort" to="." method="_on_Sort_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/Settings" to="." method="_on_Settings_pressed"]
+[connection signal="back" from="Settings" to="." method="_on_Settings_back"]
+
+[editable path="Menu"]
