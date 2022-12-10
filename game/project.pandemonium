@@ -20,7 +20,8 @@ config/target_folder=""
 
 [display]
 
-window/size/height=800
+window/size/width=900
+window/size/height=1000
 window/handheld/orientation="sensor"
 
 [editor_plugins]
