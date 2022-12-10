@@ -309,7 +309,6 @@ func _notification(what: int) -> void:
 		_sub_categories_popup_line_edit = get_node("Control/NewSubCategoryPopup/VBoxContainer/LineEdit") as LineEdit
 		
 		_zoom_slider = get_node("HBoxContainer/ZoomSlider") as VSlider
-		_zoom_slider.value = 1
 		
 		_texture_rect.texture = ImageTexture.new()
 	elif what == NOTIFICATION_VISIBILITY_CHANGED:
