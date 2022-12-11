@@ -229,9 +229,17 @@ func _on_Apply_pressed() -> void:
 	if _sub_categories_ob.selected > 0:
 		targetf = targetf.append_path(_sub_categories_ob.get_item_text(_sub_categories_ob.selected))
 	
-	targetf = targetf.plus_file(cimagefn.get_file())
-	
 	var dir : Directory = Directory.new()
+	
+	var target_filename : String = cimagefn.get_file()
+	var targetf_check : String = targetf.plus_file(target_filename)
+	var index : int = 0
+	while dir.file_exists(targetf_check):
+		targetf_check = targetf.plus_file(target_filename.get_basename() + "_" + str(index) + "." + target_filename.get_extension())
+		index += 1
+	
+	targetf = targetf_check
+	
 	var err : int = dir.copy(cimagefn, targetf)
 	
 	if err != OK:
