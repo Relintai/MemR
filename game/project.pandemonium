@@ -22,6 +22,7 @@ config/target_folder=""
 
 window/size/width=900
 window/size/height=1000
+window/dpi/allow_hidpi=true
 window/handheld/orientation="sensor"
 
 [editor_plugins]
