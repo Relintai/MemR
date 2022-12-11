@@ -38,15 +38,18 @@ func _gui_input(event: InputEvent) -> void:
 		elif iemb.button_index == BUTTON_WHEEL_DOWN:
 			_zoom_slider.value -= 0.03
 		else:
+			if mouse_down && mouse_pointer != iemb.button_index:
+				return
+				
 			mouse_down = iemb.pressed
-			mouse_pointer == event.button_index
+			mouse_pointer == iemb.button_index
 			
 		accept_event()
 		
 	elif event is InputEventMouseMotion:
 		var iemm : InputEventMouseMotion = event
 		
-		if !mouse_down || mouse_pointer != event.device:
+		if !mouse_down:
 			return
 		
 		hscrollbar.value -= iemm.relative.x
