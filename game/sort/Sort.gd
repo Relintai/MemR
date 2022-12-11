@@ -84,6 +84,8 @@ func refresh_sub_categories() -> void:
 		_sub_categories_ob.add_item(folders[i])
 
 func validate_folders() -> bool:
+	OS.request_permissions()
+	
 	sort_folder = ProjectSettings.get("application/config/sort_folder")
 	target_folder = ProjectSettings.get("application/config/target_folder")
 	

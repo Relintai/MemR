@@ -15,27 +15,27 @@ script = ExtResource( 2 )
 [node name="Menu" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 1024.0
-margin_bottom = 800.0
+margin_right = 900.0
+margin_bottom = 1000.0
 
 [node name="VBoxContainer" parent="Menu" index="0"]
-margin_right = 1024.0
-margin_bottom = 800.0
+margin_right = 900.0
+margin_bottom = 1000.0
 
 [node name="Sort" parent="Menu/VBoxContainer" index="0"]
-margin_top = 313.0
-margin_right = 1024.0
-margin_bottom = 355.0
+margin_top = 413.0
+margin_right = 900.0
+margin_bottom = 455.0
 
 [node name="Settings" parent="Menu/VBoxContainer" index="1"]
-margin_top = 379.0
-margin_right = 1024.0
-margin_bottom = 421.0
+margin_top = 479.0
+margin_right = 900.0
+margin_bottom = 521.0
 
 [node name="Exit" parent="Menu/VBoxContainer" index="2"]
-margin_top = 445.0
-margin_right = 1024.0
-margin_bottom = 487.0
+margin_top = 545.0
+margin_right = 900.0
+margin_bottom = 587.0
 
 [node name="Settings" parent="." instance=ExtResource( 3 )]
 visible = false
@@ -52,8 +52,8 @@ margin_right = 1017.0
 margin_bottom = 593.0
 
 [node name="Control" type="Control" parent="."]
-margin_right = 1024.0
-margin_bottom = 800.0
+margin_right = 900.0
+margin_bottom = 1000.0
 mouse_filter = 2
 
 [node name="FolderSetupError" type="AcceptDialog" parent="Control"]
