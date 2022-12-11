@@ -24,6 +24,8 @@ func _on_Settings_pressed() -> void:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_READY:
+		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_DISABLED, SceneTree.STRETCH_ASPECT_IGNORE, Vector2(900, 1000), clamp(OS.get_screen_dpi() / 72.0, 1, 3))
+		
 		_menu = get_node("Menu")
 		_settings = get_node("Settings")
 		_sort = get_node("Sort")
