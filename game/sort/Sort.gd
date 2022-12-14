@@ -246,7 +246,7 @@ func _on_Apply_pressed() -> void:
 		print("_on_Apply_pressed dir.copy(cimagefn, targetf) err != OK! " + str(err))
 		return
 	
-	append_command("mv " + cimagefn + " " + targetf)
+	append_command("mv \"" + cimagefn + "\" \"" + targetf + "\"")
 
 	err = dir.remove(cimagefn)
 	
@@ -282,7 +282,7 @@ func _on_NewCategoryPopup_confirmed() -> void:
 	var d : Directory = Directory.new()
 	d.make_dir_recursive(folder)
 	
-	append_command("mkdir " + folder)
+	append_command("mkdir \"" + folder + "\"")
 	
 	refresh_categories()
 	refresh_sub_categories()
@@ -300,7 +300,7 @@ func _on_NewSubCategoryPopup_confirmed() -> void:
 	var d : Directory = Directory.new()
 	d.make_dir_recursive(folder)
 	
-	append_command("mkdir " + folder)
+	append_command("mkdir \"" + folder + "\"")
 	
 	refresh_sub_categories()
 
